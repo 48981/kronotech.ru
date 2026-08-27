@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>06 — Паспорт площадок</title><link rel="stylesheet" href="style.css"></head>
+<body>
+<header><div class="wrap"><h1>06. Паспорт площадок</h1><p class="lead">Продакшен, стенд, базы и хранилище без паролей</p><nav><a href="index.html">Оглавление</a><a href="02-zhurnal-perenosa.html">Журнал</a><a href="05-plan-otkata.html">Откат</a></nav></div></header>
+<main class="wrap">
+  <table>
+    <tr><th>Параметр</th><th>Продакшен</th><th>Тестовый стенд</th></tr>
+    <tr><td>URL</td><td><code>https://kronotech.ru</code>, главный домен без www</td><td><code>https://fasad.kronotech.ru</code></td></tr>
+    <tr><td>Хостинг</td><td colspan="2">REG.RU, ISPmanager</td></tr>
+    <tr><td>Каталог</td><td><code>/var/www/u0000567/data/www/kronotech.ru</code></td><td><code>/var/www/u0000567/data/www/fasad.kronotech.ru</code></td></tr>
+    <tr><td>База</td><td><code>u0000567_kronw</code></td><td><code>u0000567_fasad_test</code></td></tr>
+    <tr><td>PHP сайта</td><td>7.2.34 alt</td><td>7.3.33 alt</td></tr>
+    <tr><td>CMS</td><td colspan="2">Drupal 7.97</td></tr>
+    <tr><td>Размер каталога 25.08</td><td>около 13 ГБ, включая сохранённые видео</td><td>около 4,8 ГБ после уборки архивов</td></tr>
+    <tr><td>robots.txt</td><td>Боевой файл сохранён; общего <code>Disallow: /</code> для <code>User-agent: *</code> нет</td><td><code>User-agent: * / Disallow: /</code></td></tr>
+    <tr><td>Сторис</td><td>Пользовательский блок выключен</td><td>Пользовательский блок выключен</td></tr>
+    <tr><td>Состояние</td><td>Релиз и приёмка завершены</td><td>Стенд сохранён для сравнения</td></tr>
+  </table>
+  <h2>Закрытое хранилище</h2>
+  <table>
+    <tr><th>Назначение</th><th>Каталог</th><th>Объём</th></tr>
+    <tr><td>Архив и дампы переноса Hostland</td><td><code>/var/www/u0000567/data/backups/hostland-transfer-20260824</code></td><td>около 4,3 ГБ</td></tr>
+    <tr><td>Точка отката перед боевым запуском</td><td><code>/var/www/u0000567/data/backups/kronotech-predeploy-20260825-230557</code></td><td>около 19 МБ</td></tr>
+  </table>
+  <h2>Точка отката</h2>
+  <ul><li><code>prod-db-before.sql.gz</code> — дамп БД, SHA-256 <code>7D7ABFAE…5745FF</code>;</li><li><code>prod-files-before.tar.gz</code> — прежние версии изменяемых файлов, SHA-256 <code>93CD033C…8A30D</code>;</li><li><code>replace-files.txt</code>, <code>add-files.txt</code>, <code>author-add-files.txt</code> — точные списки;</li><li><code>SHA256SUMS</code> — проверка целостности.</li></ul>
+  <h2>Контрольные результаты</h2>
+  <ul><li>ключевые URL — 200, контрольная 404 — 404;</li><li>canonical и sitemap используют основной домен;</li><li>74 активных правила 301 сохранены;</li><li>55 файлов релиза совпадают со стендом;</li><li>старых структурных блоков преимуществ — 0;</li><li>после исправления схемы авторов новых критических ошибок — 0.</li></ul>
+  <footer><a href="index.html">← К оглавлению</a></footer>
+</main>
+</body>
+</html>

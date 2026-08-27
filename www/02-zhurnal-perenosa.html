@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>02 — Полный журнал переноса</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <h1>02. Полный журнал переноса</h1>
+    <p class="lead">Результаты переноса по этапам, принятые решения, сложности и текущее состояние</p>
+    <nav>
+      <a href="index.html">Оглавление</a>
+      <a href="01-plan-perenosa.html">План</a>
+      <a href="03-zhurnal-deystviy.html">Действия и файлы</a>
+      <a href="04-chek-list-priemki.html">Приёмка</a>
+      <a href="05-plan-otkata.html">Откат</a>
+      <a href="06-pasport-stenda.html">Паспорт</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <p><span class="badge ok">Тестовая копия развёрнута</span> <span class="badge ok">Основной домен обновлён</span></p>
+  <div class="callout">
+    Этот файл является единственным журналом результата переноса. Точная хронология операций и полный реестр рабочих файлов находятся в одном связанном документе: <a href="03-zhurnal-deystviy.html">03. Действия и файлы</a>.
+  </div>
+
+  <h2>Итог</h2>
+  <p>Drupal 7.97 сначала развёрнут на <a href="https://fasad.kronotech.ru/">fasad.kronotech.ru</a>. После приёмки выполнен выборочный запуск на <a href="https://kronotech.ru/">kronotech.ru</a>: 21 файл заменён, 34 добавлены, боевые <code>settings.php</code>, <code>robots.txt</code>, <code>index.php</code>, видео и свежие данные сохранены.</p>
+  <div class="grid">
+    <div class="card"><h3>Файлы</h3><p>Архив без видео: 4 545 667 868 байт. Распакован в отдельный каталог стенда.</p><a href="03-zhurnal-deystviy.html#backup-files">Резервные файлы и SHA-256 →</a></div>
+    <div class="card"><h3>База</h3><p>327 таблиц, около 189,31 МБ. Подключена отдельная тестовая база <code>u0000567_fasad_test</code>.</p><a href="06-pasport-stenda.html">Паспорт стенда →</a></div>
+    <div class="card"><h3>Проверка</h3><p>Главная и 30 внутренних URL — HTTP 200. Консоль: 0 ошибок и предупреждений.</p><a href="04-chek-list-priemki.html">Чек-лист приёмки →</a></div>
+  </div>
+
+  <h2>Что было перенесено</h2>
+  <table>
+    <tr><th>Компонент</th><th>Источник</th><th>Результат на REG.RU</th></tr>
+    <tr><td>Файлы Drupal</td><td>Подготовленная тестовая версия Hostland.</td><td>Распакованы в <code>/var/www/u0000567/data/www/fasad.kronotech.ru</code>.</td></tr>
+    <tr><td>Видео</td><td>Исключены из архива по решению Виталия.</td><td>Не переносились; это известное и зафиксированное исключение.</td></tr>
+    <tr><td>База данных</td><td>Свежий gzip-дамп Hostland от 24.08.</td><td>Импортировано 327 таблиц в отдельную тестовую базу.</td></tr>
+    <tr><td>Конфигурация сайта</td><td>Тестовая конфигурация после переноса.</td><td><code>$base_url</code> установлен на HTTPS-домен стенда; подключение направлено только на тестовую базу.</td></tr>
+    <tr><td>Редиректы</td><td>Существующий набор правил <code>.htaccess</code>.</td><td>82 абсолютных правила сохранены и адаптированы для тестового домена.</td></tr>
+    <tr><td>Запрет индексации</td><td>Специальный тестовый <code>robots.txt</code>.</td><td><a href="/robots.txt"><code>User-agent: *</code> и <code>Disallow: /</code></a>.</td></tr>
+  </table>
+
+  <h2>Изменения после развёртывания</h2>
+  <table>
+    <tr><th>Изменение</th><th>Результат</th><th>Подробности</th></tr>
+    <tr><td>Отключён блок сторис.</td><td>Сторис не выводятся на тестовом сайте.</td><td><a href="03-zhurnal-deystviy.html">Запись в полной хронологии</a>.</td></tr>
+    <tr><td>Исправлена блокировка источников в <code>.htaccess</code>.</td><td>Исправлены логика условий и ошибочный символ тире.</td><td><a href="03-zhurnal-deystviy.html#checks">Результаты HTTP-проверок</a>.</td></tr>
+    <tr><td>Проверена квота диска.</td><td>Свободно 4 417 МБ из 40 000 МБ.</td><td><a href="01-plan-perenosa.html">Уборка включена в план</a>.</td></tr>
+    <tr><td>Опубликован комплект документации.</td><td>Каждый раздел представлен одним HTML-файлом.</td><td><a href="index.html">Оглавление</a>.</td></tr>
+  </table>
+
+  <h2>Настройки и резервирование</h2>
+  <ul>
+    <li><code>$base_url</code> переведён на тестовый HTTPS-домен.</li>
+    <li>82 жёстких редиректа в тестовом <code>.htaccess</code> переведены на стенд.</li>
+    <li><a href="/robots.txt"><code>robots.txt</code></a> запрещает индексацию всего стенда.</li>
+    <li>До изменений созданы резервные копии <code>settings.php</code>, <code>.htaccess</code> и <code>robots.txt</code>.</li>
+    <li>Исходная и исправленная версии <code>.htaccess</code> сохранены локально с SHA-256.</li>
+    <li>Временные PHP-помощники импорта обезврежены и снаружи отвечают 404.</li>
+    <li><a href="03-zhurnal-deystviy.html#backup-files">Открыть реестр резервных и рабочих файлов</a>.</li>
+  </ul>
+
+  <h2>Сложности и решения</h2>
+  <table>
+    <tr><th>Проблема</th><th>Причина</th><th>Решение и результат</th></tr>
+    <tr><td>Hostland запретил PROCESS для <code>mysqldump</code>.</td><td>Ограничение виртуального хостинга.</td><td>Дамп пересоздан с <code>--no-tablespaces</code>, завершён и проверен.</td></tr>
+    <tr><td>Архив около 4,23 ГиБ.</td><td>Большой объём файлов сайта даже без видео.</td><td>Передача выполнена частями; размер назначения совпал с источником.</td></tr>
+    <tr><td>Штатный импорт ISPmanager дал нулевой результат.</td><td>Ограничения интерфейса и размера импорта.</td><td>Выполнен одноразовый защищённый серверный импорт; загружены 327 таблиц, помощник затем обезврежен.</td></tr>
+    <tr><td>Старые редиректы отправляли посетителей на основной домен.</td><td>В правилах были абсолютные URL <code>kronotech.ru</code>.</td><td>Все 82 абсолютных цели в тестовом <code>.htaccess</code> переведены на стенд.</td></tr>
+    <tr><td>Блок referer содержал противоречивые условия и неправильное тире.</td><td>Условия были соединены как невозможный AND, а правило использовало <code>–</code> вместо <code>-</code>.</td><td>Установлено точное доменное выражение и <code>RewriteRule ^ - [F,L]</code>; проверены ответы 200/403.</td></tr>
+    <tr><td>Nginx отдаёт архивы в обход <code>.htaccess</code>.</td><td>Статические файлы обслуживаются до правил Apache.</td><td>Зафиксирована срочная задача: переместить архив сайта и дамп базы за пределы публичного <code>www</code>.</td></tr>
+  </table>
+
+  <h2 id="acceptance">Что проверено</h2>
+  <table>
+    <tr><th>Объект</th><th>Результат</th><th>Материал</th></tr>
+    <tr><td>Главная страница</td><td>HTTP 200.</td><td><a href="https://fasad.kronotech.ru/">Открыть стенд</a></td></tr>
+    <tr><td>30 внутренних URL</td><td>HTTP 200 на каждом.</td><td><a href="04-chek-list-priemki.html">Чек-лист</a></td></tr>
+    <tr><td>69 изображений главной</td><td>Битых файлов не найдено.</td><td><a href="screenshots/home-desktop.png">Десктопный снимок</a></td></tr>
+    <tr><td>Десктоп 1280 px</td><td>Проверен визуально.</td><td><a href="screenshots/home-desktop.png">Открыть PNG</a></td></tr>
+    <tr><td>Мобильный вид 390 px</td><td>Проверен визуально.</td><td><a href="screenshots/home-mobile.png">Открыть PNG</a></td></tr>
+    <tr><td>Браузерная консоль</td><td>0 ошибок, 0 предупреждений.</td><td><a href="03-zhurnal-deystviy.html#checks">Полный список проверок</a></td></tr>
+    <tr><td>Временные помощники</td><td>HTTP 404 снаружи.</td><td><a href="03-zhurnal-deystviy.html">Хронология</a></td></tr>
+  </table>
+
+  <h2>После запуска</h2>
+  <ul>
+    <li>Наблюдать журнал ошибок и реальные заявки в первые сутки.</li>
+    <li>Не удалять точку отката до отдельного решения после периода наблюдения.</li>
+    <li>Формы не отправлялись тестовыми заявками, чтобы не загрязнять боевые почту, CRM и статистику.</li>
+  </ul>
+
+  <div class="callout"><strong>Приёмка:</strong> ключевые URL — 200, несуществующий URL — 404, canonical и sitemap используют <code>kronotech.ru</code>, сторис отключены, старых структурных блоков преимуществ — 0.</div>
+  <footer>Обновлено 25.08.2026. <a href="index.html">← К оглавлению</a></footer>
+</main>
+</body>
+</html>

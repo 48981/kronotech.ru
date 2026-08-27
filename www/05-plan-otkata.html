@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>05 — План отката</title><link rel="stylesheet" href="style.css"></head>
+<body>
+<header><div class="wrap"><h1>05. План отката</h1><p class="lead">Возврат состояния до запуска 25.08.2026</p><nav><a href="index.html">Оглавление</a><a href="01-plan-perenosa.html">План</a><a href="04-chek-list-priemki.html">Приёмка</a></nav></div></header>
+<main class="wrap">
+  <div class="callout danger"><strong>Точка отката:</strong> <code>/var/www/u0000567/data/backups/kronotech-predeploy-20260825-230557</code>. Дамп и архив проверены через gzip и SHA-256.</div>
+  <h2>Когда откатывать</h2>
+  <ul><li>сайт массово недоступен;</li><li>формы перестали сохранять заявки;</li><li>обнаружено повреждение данных;</li><li>массово нарушены URL или SEO-настройки и быстрый ремонт невозможен.</li></ul>
+  <h2>Перед откатом</h2>
+  <ol><li>Остановить дальнейшие изменения и зафиксировать симптом.</li><li>Сделать аварийный дамп текущей базы после запуска.</li><li>Отдельно сохранить новые заявки, появившиеся после 23:05 25.08.2026, чтобы не потерять их при восстановлении старой базы.</li><li>Проверить наличие файлов <code>prod-db-before.sql.gz</code>, <code>prod-files-before.tar.gz</code>, <code>add-files.txt</code>, <code>author-add-files.txt</code> и <code>SHA256SUMS</code>.</li></ol>
+  <h2>Порядок полного отката</h2>
+  <ol>
+    <li>Включить технический режим.</li>
+    <li>Восстановить боевую БД из <code>prod-db-before.sql.gz</code> штатным импортом ISPmanager или MySQL. Пароль в документах не хранится.</li>
+    <li>В каталоге <code>/var/www/u0000567/data/www/kronotech.ru</code> распаковать <code>prod-files-before.tar.gz</code> с сохранением путей.</li>
+    <li>Удалить файлы, которых не существовало до релиза, строго по <code>add-files.txt</code> и <code>author-add-files.txt</code>. Не выполнять удаление по маске.</li>
+    <li>Очистить Drupal, Boost и AdvAgg.</li>
+    <li>Вернуть сохранённые новые заявки, если они появились после точки отката.</li>
+  </ol>
+  <h2>Контроль после отката</h2>
+  <ul><li>главная, публикации и форма открываются;</li><li>HTTP и www корректно ведут на HTTPS без www;</li><li>robots, sitemap, canonical и антибот соответствуют боевому сайту;</li><li>тестовая 404 возвращает 404;</li><li>журнал Drupal не содержит новых критических ошибок.</li></ul>
+  <div class="callout warn"><strong>Важно:</strong> текущая миграция прошла приёмку, поэтому откат не требуется. Точку отката пока не удалять.</div>
+  <footer><a href="index.html">← К оглавлению</a></footer>
+</main>
+</body>
+</html>

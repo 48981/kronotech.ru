@@ -1,0 +1,29 @@
+# Secrets and local configuration
+.env
+.env.*
+settings.php
+*credentials*
+*secret*
+*token*
+*.key
+*.pem
+
+# Backups, databases and site archives
+*.sql
+*.sql.gz
+*.dump
+*.bak
+*.tar
+*.tar.gz
+*.tgz
+*.zip
+backup*/
+backups*/
+
+# Local and editor files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.tmp
+*.log
